@@ -1,0 +1,39 @@
+.timer-background {
+    background-color: rgb(186, 73, 73);
+    min-height: 100vh;
+    width: 100%;
+    color: white;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.timer-container {
+    position: relative;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-header {
+    width: 100%;
+    max-width: 620px;
+    padding: 30px 15px 30px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.line-break {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 1px;
+    width: 100%;
+    margin-bottom: 40px;
+}

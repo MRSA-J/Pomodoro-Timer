@@ -1,30 +1,25 @@
 import React, { useEffect } from 'react';
 import Timer from './components/Timer';
-import History from './components/History'; 
 import { useAppContext } from './AppContext';
 import { useAuth0 } from '@auth0/auth0-react';
+import LogoutButton from './components/LogOut';
 import axios from 'axios';
-
-const LogoutButton = () => {
-  const { logout } = useAuth0();
-
-  return (
-      <button onClick={() => logout({ returnTo: window.location.origin })}>
-          Log Out
-      </button>
-  );
-};
+import './App.css';
 
 function App() {
-  const { setUser } = useAppContext();
+  const { setUser, setHistory } = useAppContext();
   const { isAuthenticated, isLoading, loginWithRedirect, user:auth0User } = useAuth0()
 
   useEffect(() => {
+    console.log("isLoading", isLoading);
     if (!isLoading) {
       if (!isAuthenticated) {
         loginWithRedirect();
       } else {
+        // Set the user in the context
         setUser(auth0User);
+
+        // Check if the user is registered in the database
         axios.get(process.env.REACT_APP_BACKEND_URL + '/api/auth/is_user_registered', {
           params: { email: auth0User.email }
         })
@@ -39,7 +34,6 @@ function App() {
               created_at: Date.now()
             })
             .then(response => {
-              console.log(response.data);
               console.log('User registered');
             })
             .catch(error => {
@@ -50,14 +44,26 @@ function App() {
         .catch(error => {
           console.error('Error fetching user:', error);
         });
+        console.log("auth0User", auth0User);
+
+        // Fetch the user history from the database
+        axios.get(process.env.REACT_APP_BACKEND_URL + '/api/session/get_user_history', {
+          params: { email: auth0User.email }
+        })
+        .then(response => {
+          setHistory(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching user history:', error);
+        });
       }
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isLoading]);
 
   return (
-    <div>
+    <div className='app-container'>
       <Timer />
-      <LogoutButton />
+      {isAuthenticated && <LogoutButton />}
     </div>
       // <History />
   );

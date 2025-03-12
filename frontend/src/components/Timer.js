@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../AppContext';
+import './Timer.css';
+import Avatar from './Avatar/Avatar';
 
 const Timer = () => {
-    const { isTimerActive, setIsTimerActive, history, setHistory } = useAppContext();
+    const { user, history, setHistory } = useAppContext();
+    const [isTimerActive, setIsTimerActive] = useState(false);
     const [time, setTime] = useState(1500); // 25 minutes in seconds
 
     useEffect(() => {
@@ -38,14 +41,28 @@ const Timer = () => {
     };
 
     return (
-        <div>
-            <h1>Pomodoro Timer</h1>
-            <div>{formatTime(time)}</div>
-            <button onClick={startTimer}>Start</button>
-            <button onClick={pauseTimer}>Pause</button>
-            <button onClick={resetTimer}>Reset</button>
+        <div className='timer-background'>
+            <div className='timer-container'>
+                <div className='timer-header'>
+                    <div className='timer-header-content'>
+                        <h1>Pomodoro Timer</h1>
+                        <Avatar />
+                    </div>
+                    <div className='line-break' />
+                </div>
+                x
+                <div className='timer-display'>
+                    
+                    <div>{formatTime(time)}</div>    
+                </div>
+                
+                <button onClick={startTimer}>Start</button>
+                <button onClick={pauseTimer}>Pause</button>
+                <button onClick={resetTimer}>Reset</button>    
+            </div>
         </div>
     );
 };
+
 
 export default Timer;

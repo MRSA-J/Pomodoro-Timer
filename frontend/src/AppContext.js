@@ -7,10 +7,8 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
     const [user, setUser] = useState(null); // User login/sign-in information
     const [history, setHistory] = useState([]); // User history
-    const [isTimerActive, setIsTimerActive] = useState(false); // Timer status
-
     return (
-        <AppContext.Provider value={{ user, setUser, history, setHistory, isTimerActive, setIsTimerActive }}>
+        <AppContext.Provider value={{ user, setUser, history, setHistory }}>
             {children}
         </AppContext.Provider>
     );

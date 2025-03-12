@@ -1,9 +1,7 @@
 // models/User.js
 const mongoose = require('mongoose');
 
-const conn = mongoose.createConnection(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-});
+const conn = mongoose.createConnection(process.env.MONGODB_URI);
 
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
