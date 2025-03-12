@@ -1,0 +1,115 @@
+.timer-background {
+  background-color: rgb(186, 73, 73);
+  height: 100vh;
+  width: 100%;
+  color: white;
+  transition: background-color 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-header {
+  width: 620px;
+  padding: 30px 15px 30px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 700px) {
+  .timer-header {
+    min-width: 84%;
+  }
+}
+
+.timer-header-content {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line-break {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.timer-content-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-display {
+  width: 480px;
+  height: 280px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.timer-display-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-display-header-button {
+  cursor: pointer;
+  padding: 8px;
+  margin: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.timer-display-header-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.timer-display-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-display-time-text {
+  font-size: 120px;
+  font-weight: bold;
+}
+
+.timer-display-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-display-bottom-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.timer-display-bottom-button {
+  cursor: pointer;
+  padding: 8px;
+  margin: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.timer-display-bottom-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}

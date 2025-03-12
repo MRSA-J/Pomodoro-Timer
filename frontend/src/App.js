@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Timer from "./components/Timer";
+import Timer from "./components/Timer/Timer";
 import { useAppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./components/LogOut";
@@ -80,9 +80,7 @@ function App() {
   return (
     <div className="app-container">
       <Timer />
-      {isAuthenticated && <LogoutButton />}
     </div>
-    // <History />
   );
 }
 
