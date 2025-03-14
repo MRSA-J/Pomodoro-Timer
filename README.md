@@ -2,9 +2,12 @@
 
 A customizable Pomodoro timer application designed to help you boost your productivity by managing your work and break intervals effectively. This app is inspired by the Pomodoro Technique, which breaks work into intervals, traditionally 25 minutes in length, separated by short breaks.
 
+The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation and code are completely written from scratch, as this website uses an HTML + CSS framework while this project uses the React framework.
+
 ## Table of Contents
 
 - [Features](#features)
+- [Demo](#Demo)
 - [Technologies Used](#technologies-used)
 - [Backend Decisions](#backend-decisions)
 - [Installation](#installation)
@@ -20,6 +23,9 @@ A customizable Pomodoro timer application designed to help you boost your produc
 - **History Tracking**: Keep track of completed Pomodoros and breaks.
 - **Responsive Design**: Works well on both desktop and mobile devices.
 - **User Authentication**: Secure login using Auth0.
+
+## Demo
+![Pomodoro Timer Demo](demo/Timer.png)
 
 ## Technologies Used
 
