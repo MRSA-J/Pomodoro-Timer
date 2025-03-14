@@ -33,7 +33,7 @@ router.post("/create", async (req, res) => {
 });
 
 // Route to fetch timer events for a specific user
-router.get("/timer-events/:email", async (req, res) => {
+router.get("/get-all-timer-events/:email", async (req, res) => {
   try {
     const { email } = req.params;
 
@@ -43,7 +43,7 @@ router.get("/timer-events/:email", async (req, res) => {
     }
 
     // Fetch all timer events for the user
-    const events = await TimerEvent.find({ email }).sort({ createdAt: -1 }); // Sort by createdAt in descending order
+    const events = await TimerEvent.find({ email }).sort({ createdAt: 1 }); // Sort by createdAt in descending order
 
     // Respond with the events
     res.status(200).json(events);

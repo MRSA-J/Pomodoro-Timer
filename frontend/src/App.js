@@ -6,7 +6,7 @@ import axios from "axios";
 import "./App.css";
 
 function App() {
-  const { setUser, setHistory } = useAppContext();
+  const { setUser } = useAppContext();
   const {
     isAuthenticated,
     isLoading,
@@ -57,21 +57,6 @@ function App() {
             console.error("Error fetching user:", error);
           });
         console.log("auth0User", auth0User);
-
-        // Fetch the user history from the database
-        // axios
-        //   .get(
-        //     process.env.REACT_APP_BACKEND_URL + "/api/session/get_user_history",
-        //     {
-        //       params: { email: auth0User.email },
-        //     }
-        //   )
-        //   .then((response) => {
-        //     setHistory(response.data);
-        //   })
-        //   .catch((error) => {
-        //     console.error("Error fetching user history:", error);
-        //   });
       }
     }
   }, [isAuthenticated, isLoading]);

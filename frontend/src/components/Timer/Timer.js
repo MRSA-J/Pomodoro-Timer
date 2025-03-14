@@ -4,12 +4,14 @@ import "./Timer.css";
 import Avatar from "../Avatar/Avatar";
 import { FaPlay, FaPause, FaRedo } from "react-icons/fa"; // Import icons from react-icons
 import axios from "axios"; // Import axios
+import { fetchUserHistory } from "../../fetchUserHistory";
 
 const Timer = () => {
-  const { user, history, setHistory } = useAppContext();
+  const { user, timerEvents, setTimerEvents } = useAppContext();
   const [timerStatus, setTimerStatus] = useState("end"); // "start", "pause", "end"
   const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
   const [mode, setMode] = useState("pomodoro");
+  const [reloadHistory, setReloadHistory] = useState(false);
 
   // Function to send data to the backend using axios
   const sendDataToBackend = async (data) => {
@@ -53,6 +55,7 @@ const Timer = () => {
     if (timerStatus === "end") return;
 
     setTimerStatus("end");
+    setReloadHistory(!reloadHistory);
 
     // Send end event to backend
     sendDataToBackend({
@@ -74,10 +77,10 @@ const Timer = () => {
   // Handle page exit (close or refresh)
   useEffect(() => {
     const handleBeforeUnload = (event) => {
-      if (timerStatus !== "end") {
+      if (timerStatus === "start") {
         sendDataToBackend({
           email: user.email, // Use email instead of userEmail
-          event: "end",
+          event: "pause",
           mode: mode,
         });
       }
@@ -103,24 +106,53 @@ const Timer = () => {
       resetTimer();
     }
     return () => clearInterval(interval);
-  }, [timerStatus, time]);
+  }, [timerStatus, time, resetTimer]);
+
+  // Load Timer history
+  useEffect(() => {
+    user && fetchUserHistory(user.email, setTimerEvents);
+  }, [reloadHistory, user, setTimerEvents]);
 
   const handlePomodoroClick = () => {
+    if (timerStatus === "start") {
+      sendDataToBackend({
+        email: user.email, // Use email instead of userEmail
+        event: "pause",
+        mode: mode,
+      });
+    }
     setMode("pomodoro");
     setTime(25 * 60);
     setTimerStatus("end");
+    setReloadHistory(!reloadHistory);
   };
 
   const handleShortBreakClick = () => {
+    if (timerStatus === "start") {
+      sendDataToBackend({
+        email: user.email, // Use email instead of userEmail
+        event: "pause",
+        mode: mode,
+      });
+    }
     setMode("shortBreak");
     setTime(5 * 60);
     setTimerStatus("end");
+    setReloadHistory(!reloadHistory);
   };
 
   const handleLongBreakClick = () => {
+    if (timerStatus === "start") {
+      sendDataToBackend({
+        email: user.email, // Use email instead of userEmail
+        event: "pause",
+        mode: mode,
+      });
+    }
     setMode("longBreak");
     setTime(15 * 60);
     setTimerStatus("end");
+    setReloadHistory(!reloadHistory);
   };
 
   const formatTime = (seconds) => {
@@ -144,59 +176,106 @@ const Timer = () => {
           </div>
         </div>
         <div className="timer-content-container">
-          <div className="timer-display">
-            <div className="timer-display-header">
-              <div
-                className={`timer-display-header-button ${
-                  mode === "pomodoro" ? "active" : ""
-                }`}
-                onClick={handlePomodoroClick}
-              >
-                <text>Pomodoro</text>
+          <div className="timer-display-container">
+            <div className="timer-display">
+              <div className="timer-display-header">
+                <div
+                  className={`timer-display-header-button ${
+                    mode === "pomodoro" ? "active" : ""
+                  }`}
+                  onClick={handlePomodoroClick}
+                >
+                  <text>Pomodoro</text>
+                </div>
+                <div
+                  className={`timer-display-header-button ${
+                    mode === "shortBreak" ? "active" : ""
+                  }`}
+                  onClick={handleShortBreakClick}
+                >
+                  <text>Short Break</text>
+                </div>
+                <div
+                  className={`timer-display-header-button ${
+                    mode === "longBreak" ? "active" : ""
+                  }`}
+                  onClick={handleLongBreakClick}
+                >
+                  <text>Long Break</text>
+                </div>
               </div>
-              <div
-                className={`timer-display-header-button ${
-                  mode === "shortBreak" ? "active" : ""
-                }`}
-                onClick={handleShortBreakClick}
-              >
-                <text>Short Break</text>
+              <div className="timer-display-time">
+                <text className="timer-display-time-text">
+                  {formatTime(time)}
+                </text>
               </div>
-              <div
-                className={`timer-display-header-button ${
-                  mode === "longBreak" ? "active" : ""
-                }`}
-                onClick={handleLongBreakClick}
-              >
-                <text>Long Break</text>
-              </div>
-            </div>
-            <div className="timer-display-time">
-              <text className="timer-display-time-text">
-                {formatTime(time)}
-              </text>
-            </div>
 
-            <div className="timer-display-bottom">
-              <div
-                className={`timer-display-bottom-button ${
-                  timerStatus === "start" ? "disabled" : ""
-                }`}
-                onClick={timerStatus !== "start" ? startTimer : undefined}
-              >
-                <FaPlay /> {/* Start icon */}
+              <div className="timer-display-bottom">
+                <div
+                  className={`timer-display-bottom-button ${
+                    timerStatus === "start" ? "disabled" : ""
+                  }`}
+                  onClick={timerStatus !== "start" ? startTimer : undefined}
+                >
+                  <FaPlay /> {/* Start icon */}
+                </div>
+                <div
+                  className={`timer-display-bottom-button ${
+                    timerStatus !== "start" ? "disabled" : ""
+                  }`}
+                  onClick={timerStatus === "start" ? pauseTimer : undefined}
+                >
+                  <FaPause /> {/* Pause icon */}
+                </div>
+                <div
+                  className="timer-display-bottom-button"
+                  onClick={resetTimer}
+                >
+                  <FaRedo /> {/* Reset icon */}
+                </div>
               </div>
-              <div
-                className={`timer-display-bottom-button ${
-                  timerStatus !== "start" ? "disabled" : ""
-                }`}
-                onClick={timerStatus === "start" ? pauseTimer : undefined}
-              >
-                <FaPause /> {/* Pause icon */}
-              </div>
-              <div className="timer-display-bottom-button" onClick={resetTimer}>
-                <FaRedo /> {/* Reset icon */}
-              </div>
+            </div>
+            <div className="white-line-break" />
+          </div>
+
+          <div className="timer-history">
+            <text className="history-title-text">History</text>
+            <div className="history-list">
+              {timerEvents
+                .slice()
+                .reverse()
+                .map((eventGroup, index) => (
+                  <div
+                    key={index}
+                    className={`history-item`} // Add mode-specific class
+                  >
+                    <div className="history-mode">
+                      Mode: <strong>{eventGroup.mode}</strong>
+                    </div>
+                    <div className="history-events">
+                      {eventGroup.events.map((event, idx) => (
+                        <div key={idx} className="history-event">
+                          <text className={`event-type ${event.event}`}>
+                            {event.event === "start" && <FaPlay />}{" "}
+                            {/* Start icon */}
+                            {event.event === "pause" && <FaPause />}{" "}
+                            {/* Pause icon */}
+                            {event.event === "end" && <FaRedo />}{" "}
+                            {/* End icon */}
+                            {event.event}
+                          </text>
+                          <text className="event-time">
+                            {new Date(event.createdAt).toLocaleTimeString()}
+                          </text>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="history-duration">
+                      Duration:{" "}
+                      <strong>{eventGroup.duration_time / 1000} s</strong>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
