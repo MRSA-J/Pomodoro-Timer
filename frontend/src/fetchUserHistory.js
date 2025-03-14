@@ -21,7 +21,10 @@ export const fetchUserHistory = async (email, setTimerEvents) => {
     let currentDurationTime = 0; // Initialize duration time
 
     events.forEach((event) => {
-      if (event.mode !== currentMode || event.event === "start") {
+      if (
+        event.mode !== currentMode ||
+        (previousEvent && previousEvent.event === "end")
+      ) {
         // If the mode changes, save the current group
         if (currentGroup.length > 0) {
           groupedEvents.push({

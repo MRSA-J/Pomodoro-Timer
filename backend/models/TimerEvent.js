@@ -11,7 +11,7 @@ const timerEventSchema = new mongoose.Schema({
   event: {
     type: String,
     required: true,
-    enum: ["start", "pause", "end"], // Only allow these values
+    enum: ["start", "pause", "end", "link-break"], // Only allow these values
   },
   createdAt: {
     type: Date,

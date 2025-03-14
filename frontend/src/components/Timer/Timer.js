@@ -7,11 +7,11 @@ import axios from "axios"; // Import axios
 import { fetchUserHistory } from "../../fetchUserHistory";
 
 const Timer = () => {
-  const { user, timerEvents, setTimerEvents } = useAppContext();
+  const { user, timerEvents, setTimerEvents, reloadHistory, setReloadHistory } =
+    useAppContext();
   const [timerStatus, setTimerStatus] = useState("end"); // "start", "pause", "end"
   const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
   const [mode, setMode] = useState("pomodoro");
-  const [reloadHistory, setReloadHistory] = useState(false);
 
   // Function to send data to the backend using axios
   const sendDataToBackend = async (data) => {
@@ -80,7 +80,7 @@ const Timer = () => {
       if (timerStatus === "start") {
         sendDataToBackend({
           email: user.email, // Use email instead of userEmail
-          event: "pause",
+          event: "link-break",
           mode: mode,
         });
       }
@@ -110,14 +110,53 @@ const Timer = () => {
 
   // Load Timer history
   useEffect(() => {
-    user && fetchUserHistory(user.email, setTimerEvents);
-  }, [reloadHistory, user, setTimerEvents]);
+    if (user) {
+      // Fetch user history
+      fetchUserHistory(user.email, (updatedEvents) => {
+        // Use a callback to ensure timerEvents is updated
+        setTimerEvents(updatedEvents);
+
+        if (updatedEvents.length === 0) return; // Exit if no events
+
+        const latestSession = updatedEvents[updatedEvents.length - 1]; // Get the latest session
+        const latestEvent =
+          latestSession.events[latestSession.events.length - 1]; // Get the latest event
+
+        if (latestEvent.event !== "link-break") return; // Exit if the latest event is not "link-break"
+        console.log("Link-break event");
+
+        // Set timer status to "start"
+        setTimerStatus("start");
+
+        // Calculate the corresponding time for the current mode
+        const modeTime =
+          mode === "pomodoro"
+            ? 25 * 60
+            : mode === "shortBreak"
+            ? 5 * 60
+            : 15 * 60;
+
+        // Adjust the time based on the duration
+        const remainingTime = Math.round(
+          modeTime - latestSession.duration_time / 1000
+        ); // Convert duration to seconds
+        setTime(Math.max(remainingTime, 0)); // Ensure time is not negative
+
+        // Send a "start" event to the backend
+        sendDataToBackend({
+          email: user.email,
+          event: "start",
+          mode: mode,
+        });
+      });
+    }
+  }, [reloadHistory, user, setTimerEvents, mode]); // Remove timerEvents from dependencies
 
   const handlePomodoroClick = () => {
-    if (timerStatus === "start") {
+    if (timerStatus !== "end") {
       sendDataToBackend({
         email: user.email, // Use email instead of userEmail
-        event: "pause",
+        event: "end",
         mode: mode,
       });
     }
@@ -128,10 +167,10 @@ const Timer = () => {
   };
 
   const handleShortBreakClick = () => {
-    if (timerStatus === "start") {
+    if (timerStatus !== "end") {
       sendDataToBackend({
         email: user.email, // Use email instead of userEmail
-        event: "pause",
+        event: "end",
         mode: mode,
       });
     }
@@ -142,10 +181,10 @@ const Timer = () => {
   };
 
   const handleLongBreakClick = () => {
-    if (timerStatus === "start") {
+    if (timerStatus !== "end") {
       sendDataToBackend({
         email: user.email, // Use email instead of userEmail
-        event: "pause",
+        event: "end",
         mode: mode,
       });
     }
@@ -253,22 +292,25 @@ const Timer = () => {
                       Mode: <strong>{eventGroup.mode}</strong>
                     </div>
                     <div className="history-events">
-                      {eventGroup.events.map((event, idx) => (
-                        <div key={idx} className="history-event">
-                          <text className={`event-type ${event.event}`}>
-                            {event.event === "start" && <FaPlay />}{" "}
-                            {/* Start icon */}
-                            {event.event === "pause" && <FaPause />}{" "}
-                            {/* Pause icon */}
-                            {event.event === "end" && <FaRedo />}{" "}
-                            {/* End icon */}
-                            {event.event}
-                          </text>
-                          <text className="event-time">
-                            {new Date(event.createdAt).toLocaleTimeString()}
-                          </text>
-                        </div>
-                      ))}
+                      {eventGroup.events
+                        .slice()
+                        .reverse()
+                        .map((event, idx) => (
+                          <div key={idx} className="history-event">
+                            <text className={`event-type ${event.event}`}>
+                              {event.event === "start" && <FaPlay />}{" "}
+                              {/* Start icon */}
+                              {event.event === "pause" && <FaPause />}{" "}
+                              {/* Pause icon */}
+                              {event.event === "end" && <FaRedo />}{" "}
+                              {/* End icon */}
+                              {event.event}
+                            </text>
+                            <text className="event-time">
+                              {new Date(event.createdAt).toLocaleTimeString()}
+                            </text>
+                          </div>
+                        ))}
                     </div>
                     <div className="history-duration">
                       Duration:{" "}

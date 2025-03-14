@@ -7,6 +7,7 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null); // User login/sign-in information
   const [timerEvents, setTimerEvents] = useState([]); // User history
+  const [reloadHistory, setReloadHistory] = useState(false);
   return (
     <AppContext.Provider
       value={{
@@ -14,6 +15,8 @@ export const AppProvider = ({ children }) => {
         setUser,
         timerEvents,
         setTimerEvents,
+        reloadHistory,
+        setReloadHistory,
       }}
     >
       {children}
