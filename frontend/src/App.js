@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Timer from "./components/Timer/Timer";
 import { useAppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import LogoutButton from "./components/LogOut";
 import axios from "axios";
 import "./App.css";
 

@@ -1,11 +1,22 @@
 .timer-background {
-  background-color: rgb(186, 73, 73);
   height: 100vh;
   width: 100%;
   color: white;
   transition: background-color 0.5s ease-in-out;
   display: flex;
   flex-direction: column;
+}
+
+.timer-background.pomodoro {
+  background-color: rgb(186, 73, 73); /* Red for Pomodoro */
+}
+
+.timer-background.shortBreak {
+  background-color: rgb(56, 133, 138); /* Teal for Short Break */
+}
+
+.timer-background.longBreak {
+  background-color: rgb(57, 112, 151); /* Blue for Long Break */
 }
 
 .timer-container {
@@ -66,13 +77,17 @@
   width: 480px;
   height: 280px;
   background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
 .timer-display-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: inline-flex;
   justify-content: center;
+  align-items: center;
 }
 
 .timer-display-header-button {
@@ -83,7 +98,22 @@
   border-radius: 5px;
 }
 
-.timer-display-header-button:hover {
+.timer-display-header-button.active {
+  border: none;
+  margin: 0px;
+  border-radius: 4px;
+  font-size: 20px;
+  background: none rgba(0, 0, 0, 0.15);
+  box-shadow: none;
+  color: white;
+  opacity: 1;
+  font-weight: bold;
+  background-color: none rgba(0, 0, 0, 0.15);
+  cursor: default; /* Disable pointer events on active button */
+  pointer-events: none; /* Disable clicks on active button */
+}
+
+.timer-display-header-button:not(.active):hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -100,24 +130,34 @@
 
 .timer-display-bottom {
   display: flex;
+  width: 60%;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-}
-
-.timer-display-bottom-text {
-  font-size: 20px;
-  font-weight: bold;
+  justify-content: space-around;
 }
 
 .timer-display-bottom-button {
   cursor: pointer;
-  padding: 8px;
-  margin: 20px;
-  font-size: 20px;
+  padding: 10px;
+  margin: 5px;
   border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.timer-display-bottom-button:hover {
+.timer-display-bottom-button.disabled {
+  cursor: default;
+  opacity: 0.5;
+  pointer-events: none; /* Disable clicks */
+}
+
+.timer-display-bottom-button:not(.disabled):hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.timer-display-bottom-button svg {
+  font-size: 1.5rem; /* Adjust icon size */
 }
