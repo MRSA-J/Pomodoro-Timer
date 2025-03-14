@@ -3,6 +3,7 @@ import { useAppContext } from "../../AppContext";
 import "./Timer.css";
 import Avatar from "../Avatar/Avatar";
 import { FaPlay, FaPause, FaRedo } from "react-icons/fa"; // Import icons from react-icons
+import axios from "axios"; // Import axios
 
 const Timer = () => {
   const { user, history, setHistory } = useAppContext();
@@ -10,25 +11,17 @@ const Timer = () => {
   const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
   const [mode, setMode] = useState("pomodoro");
 
-  // Function to send data to the backend
+  // Function to send data to the backend using axios
   const sendDataToBackend = async (data) => {
-    // try {
-    //   const response = await fetch("/api/timer", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
-    //   if (!response.ok) {
-    //     throw new Error("Failed to save timer data");
-    //   }
-    //   const result = await response.json();
-    //   console.log("Data saved successfully:", result);
-    // } catch (error) {
-    //   console.error("Error saving timer data:", error);
-    // }
-    console.log(data);
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_BACKEND_URL + "/api/timer-event/create",
+        data
+      ); // Send POST request to /api/timer-events
+      console.log("Data saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving timer data:", error);
+    }
   };
 
   // Handle timer start
@@ -37,8 +30,8 @@ const Timer = () => {
 
     // Send start event to backend
     sendDataToBackend({
+      email: user.email, // Use email instead of userEmail
       event: "start",
-      createdAt: new Date(),
       mode: mode,
     });
   };
@@ -49,8 +42,8 @@ const Timer = () => {
 
     // Send pause event to backend
     sendDataToBackend({
+      email: user.email, // Use email instead of userEmail
       event: "pause",
-      createdAt: new Date(),
       mode: mode,
     });
   };
@@ -63,8 +56,8 @@ const Timer = () => {
 
     // Send end event to backend
     sendDataToBackend({
+      email: user.email, // Use email instead of userEmail
       event: "end",
-      createdAt: new Date(),
       mode: mode,
     });
 
@@ -83,8 +76,8 @@ const Timer = () => {
     const handleBeforeUnload = (event) => {
       if (timerStatus !== "end") {
         sendDataToBackend({
+          email: user.email, // Use email instead of userEmail
           event: "end",
-          createdAt: new Date(),
           mode: mode,
         });
       }
@@ -94,7 +87,7 @@ const Timer = () => {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [timerStatus, mode]);
+  }, [timerStatus, mode, user]);
 
   // Timer countdown logic
   useEffect(() => {
@@ -113,42 +106,18 @@ const Timer = () => {
   }, [timerStatus, time]);
 
   const handlePomodoroClick = () => {
-    if (timerStatus !== "end") {
-      // Send end event when it's not start or pause.
-      sendDataToBackend({
-        event: "end",
-        createdAt: new Date(),
-        mode: mode,
-      });
-    }
     setMode("pomodoro");
     setTime(25 * 60);
     setTimerStatus("end");
   };
 
   const handleShortBreakClick = () => {
-    if (timerStatus !== "end") {
-      // Send end event when it's not start or pause.
-      sendDataToBackend({
-        event: "end",
-        createdAt: new Date(),
-        mode: mode,
-      });
-    }
     setMode("shortBreak");
     setTime(5 * 60);
     setTimerStatus("end");
   };
 
   const handleLongBreakClick = () => {
-    if (timerStatus !== "end") {
-      // Send end event when it's not start or pause.
-      sendDataToBackend({
-        event: "end",
-        createdAt: new Date(),
-        mode: mode,
-      });
-    }
     setMode("longBreak");
     setTime(15 * 60);
     setTimerStatus("end");
