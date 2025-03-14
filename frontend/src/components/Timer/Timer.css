@@ -26,13 +26,21 @@
 @media only screen and (max-width: 700px) {
   .timer-header {
     min-width: 84%;
+    padding: 30px 15px 30px 15px;
   }
 }
 
 .timer-header-content {
   display: flex;
   width: 100%;
-  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-header-upper-content {
+  display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

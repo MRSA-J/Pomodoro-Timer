@@ -6,7 +6,7 @@ import Avatar from "../Avatar/Avatar";
 const Timer = () => {
   const { user, history, setHistory } = useAppContext();
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [time, setTime] = useState(1500); // 25 minutes in seconds
+  const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
 
   useEffect(() => {
     let interval = null;
@@ -47,13 +47,18 @@ const Timer = () => {
       <div className="timer-container">
         <div className="timer-header">
           <div className="timer-header-content">
-            <h1>Pomodoro Timer</h1>
-            <Avatar />
+            <div className="timer-header-upper-content">
+              <h1>Pomodoro Timer</h1>
+              <Avatar />  
+            </div>
+            <div className="line-break" />
           </div>
-          <div className="line-break" />
+         
         </div>
         <div className="timer-content-container">
+          
           <div className="timer-display">
+
             <div className="timer-display-header">
               <div className="timer-display-header-button" onClick={startTimer}>
                 Start
@@ -65,11 +70,13 @@ const Timer = () => {
                 Reset
               </div>
             </div>
+
             <div className="timer-display-time">
               <text className="timer-display-time-text">
                 {formatTime(time)}
               </text>
             </div>
+
             <div className="timer-display-bottom">
               <text className="timer-display-bottom-text">Need a break?</text>
               <div
