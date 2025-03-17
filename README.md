@@ -10,12 +10,11 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
 
 - [Features](#features)
 - [Demo](#demo)
-- [Technologies Used](#technologies-used)
+- [Framework](#framework)
 - [Backend Decisions](#backend-decisions)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [Reflection](#reflection)
 - [License](#license)
 
 ## Features
@@ -27,7 +26,7 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
 - **Responsive Design**: Works well on both desktop and mobile devices.
 - **User Authentication**: Secure login using Auth0.
 
-## Future Features
+### Future Features
 - **CRUD Functionality for History Tracking**: Due to time constraints, this feature has not yet been implemented. It would be beneficial if the history could be pulled from the database, allowing users to modify, delete, or resume their sessions. Additionally, it would be helpful if users could set labels for each task and if a filtering option for tasks could be implemented. Currently, users can only add the sessions.
 - **Scalability and Performance** for the backend.
 
@@ -40,7 +39,7 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
 ![Long Break](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/demo/Long%20Break.jpg)
 ![Short Break](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/demo/Short%20Break.jpg)
 
-## Technologies/Framework Used
+## Framework
 
 - **React**: Frontend library for building user interfaces.
 - **Axios**: For making HTTP requests to the backend.
@@ -141,6 +140,5 @@ Contributions are welcome! If you have suggestions for improvements or new featu
    ```
 
 
-## Reflection
-
-To be written
+## License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/LICENSE) file for details.
