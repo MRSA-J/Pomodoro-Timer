@@ -4,7 +4,7 @@ A customizable Pomodoro timer application designed to help you boost your produc
 
 The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation and code are completely written from scratch, as this website uses an HTML + CSS framework while this project uses the React framework.
 
-This is a project for an take-home-interview. Due to time constraints(1-2 days limitation), this is a simplified version of the Pomodoro Timer. If I had more time, I would implement CRUD functionality for the history tracker, a leaderboard for all users, and additional features.
+This is a project for an take-home-interview. Due to time constraints, this is a simplified version of the Pomodoro Timer. If I had more time, I would implement CRUD functionality for the history tracker, a leaderboard for all users, and additional features.
 
 ## Table of Contents
 
@@ -147,22 +147,25 @@ For this project, the most time-consuming parts were:
 - Implementing the logic for resuming, starting, and ending the timer, as well as handling the button clicks for Pomodoro, short break, and long break.
 - Figuring out why I'm always stuck at the Auth0 authentication page
 
-**1. Designing the Pomodoro History Backend Storage**
+### 1. Designing the Pomodoro History Backend Storage
 There are two designs for the Pomodoro history. One design involves storing it as time sessions, which includes 3 or more variables for the latest start, resume, and end button clicks time. The other design stores each user click as a time event.
 
-(1) Storing Pomodoro History as Time Sessions
+**(1) Storing Pomodoro History as Time Sessions**
+
 We need at least three variables to store the latest three button clicks and evaluate them with the backend code regarding the website's status. This approach does not allow us to monitor each user's individual clicks.
 
-(2) Storing Each User's Click as a Time Event
+**(2) Storing Each User's Click as a Time Event**
+
 If we choose this strategy, we will be able to track each user's button click event and maintain a more detailed version of their history when rendering on the frontend. Since Pomodoro timers are designed to help users focus, I believe that breaks also matter and should be displayed to users. The UI design could vary, but this approach can prevent users from repeatedly clicking start and stop. I generate time sessions from this time events manually.
 
 Choosing either design 1 or 2 is viable; it depends on the use case and the frontend design. This project chooses the latter design for better user behavioral tracking, while [Pomofocus](https://pomofocus.io/) chooses the former.
 
-**2. Implementing the Logic for Resuming, Starting, and Ending the Timer, as Well as Handling the Button Clicks for Pomodoro, Short Break, and Long Break**
+### 2. Implementing the Logic for Resuming, Starting, and Ending the Timer, as Well as Handling the Button Clicks for Pomodoro, Short Break, and Long Break
 The detailed logic can be found in [frontend/src/components/Timer/Timer.js](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/frontend/src/components/Timer/Timer.js). In my design, each time event has four statuses: start, end, resume, and link-break. The link-break status is designed for when a user has an active Pomodoro timer and refreshes the page; this ensures that the page does not lose track of their status and that the Pomodoro timer continues to run normally.
 
-**3.Figuring out why I'm always stuck at the Auth0 authentication page**
-I tried all the methods I could find online; they all discuss cross-site strategies, but none of them worked. After several hours, I discovered that the issue was due to the website needing some time to load. I have to determine whether the website is loading before judging whether the users are authenticated.
+### 3.Figuring out why I'm always stuck at the Auth0 authentication page
+I tried all the methods I could find online; they all discuss cross-site strategies, but none of them worked. After several hours, I discovered that the issue was due to the website needing some time to load. I have to determine whether the website is loading before entering the Auth0 logic.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/LICENSE) file for details.
+
