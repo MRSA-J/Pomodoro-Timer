@@ -15,6 +15,7 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [Reflection](#reflection)
 - [License](#license)
 
 ## Features
@@ -27,14 +28,17 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
 - **User Authentication**: Secure login using Auth0.
 
 ## Future Features
-- **CRUD Functionality for History Tracking**: Due to time constraints, this feature has not yet been implemented.
+- **CRUD Functionality for History Tracking**: Due to time constraints, this feature has not yet been implemented. It would be beneficial if the history could be pulled from the database, allowing users to modify, delete, or resume their sessions. Additionally, it would be helpful if users could set labels for each task and if a filtering option for tasks could be implemented. Currently, users can only add the sessions.
+- **Scalability and Performance** for the backend.
 
 ## Demo
 
 - **Frontend**: [Pomodoro Timer Frontend](https://pomodoro-timer-h9tyc58cz-chen-weis-projects.vercel.app/)
 - **Backend**: [Pomodoro Timer Backend](https://pomodoro-timer-auhy.onrender.com)
 
-![Pomodoro Timer Demo](demo/Timer.png)
+![Pomodoro Timer Demo](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/demo/Pomodoro.jpg)
+![Long Break](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/demo/Long%20Break.jpg)
+![Short Break](https://github.com/MRSA-J/Pomodoro-Timer/blob/main/demo/Short%20Break.jpg)
 
 ## Technologies/Framework Used
 
@@ -87,17 +91,26 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
    npm install
    ```
 
-3. Create a `.env` file in the root directory and add your Auth0 credentials:
+3. Create a `.env` file in the `frontend` directory and add your Auth0 credentials:
    ```plaintext
    REACT_APP_AUTH0_DOMAIN=your-auth0-domain
    REACT_APP_AUTH0_CLIENT_ID=your-auth0-client-id
    REACT_APP_BACKEND_URL=your-backend-url
    ```
 
-4. Start the development server:
+4. Create a `.env` file in the `backend` directory and add your Auth0 credentials:
+   ```plaintext
+   MONGODB_URI= your-mongodb-url
+   FRONTEND_URL=your-front-end-deploy-url
+   ```
+
+5. Start the development server:
    ```bash
    npm start
    ```
+
+## Troubleshooting
+If your frontend works well locally but does not function properly when deployed, remember to check that your frontend URL is also updated on the Auth0 platform; add it as a callback URL.
 
 ## Usage
 
@@ -107,6 +120,7 @@ This is a test project for an interview with AwakeTeam. Due to time constraints(
 4. Click on the "Pomodoro", "Short Break", or "Long Break" buttons to start the timer.
 5. Use the play, pause, and reset buttons to control the timer.
 6. View your timer history to track your productivity.
+
 
 ## Contributing
 
@@ -125,3 +139,8 @@ Contributions are welcome! If you have suggestions for improvements or new featu
    ```bash
    git push origin feature/YourFeature
    ```
+
+
+## Reflection
+
+To be written
