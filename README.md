@@ -39,19 +39,19 @@ The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation
 
 ### Architecture
 
-- **RESTful API**: The backend is designed as a RESTful API, allowing the frontend to communicate with the server using standard HTTP methods (GET, POST, PUT, DELETE). This architecture is suitable for applications requiring CRUD operations.
+- **RESTful API**: The backend is designed as a `RESTful API`, allowing the frontend to communicate with the server using `standard HTTP methods (GET, POST, PUT, DELETE)`. This architecture is suitable for applications requiring CRUD operations.
 
 ### Technology Stack
 
-- **Node.js and Express**: The backend is built using Node.js, which allows for JavaScript to be used on both the frontend and backend. Express is used as the framework for building the API, providing a robust set of features for web applications.
+- **Node.js and Express**: The backend is built using `Node.js`, which allows for `JavaScript` to be used on both the frontend and backend. `Express` is used as the framework for building the API, providing a robust set of features for web applications.
 
 ### Database
 
-- **MongoDB**: The application uses MongoDB as a NoSQL database, allowing for flexible data modeling. This is beneficial for storing user data, timer events, and history logs.
+- **MongoDB**: The application uses `MongoDB` as a `NoSQL` database, allowing for flexible data modeling. This is beneficial for storing user data, timer events, and history logs.
 
 ### Authentication
 
-- **Auth0**: The application uses Auth0 for user authentication, simplifying the process of managing user sessions and security. Auth0 supports various authentication methods, including social logins and email/password.
+- **Auth0**: The application uses `Auth0` for user authentication, simplifying the process of managing user sessions and security. `Auth0` supports various authentication methods, including social logins and email/password.
 
 ### API Design
 

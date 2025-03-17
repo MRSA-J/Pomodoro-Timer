@@ -12,7 +12,7 @@ export const fetchUserHistory = async (email, setTimerEvents) => {
       `${process.env.REACT_APP_BACKEND_URL}/api/timer-event/get-all-timer-events/${email}`
     );
     const events = response.data;
-
+    // console.log(events);
     // Group events by mode changes
     const groupedEvents = [];
     let currentMode = null;
@@ -46,6 +46,7 @@ export const fetchUserHistory = async (email, setTimerEvents) => {
         currentDurationTime += endTime - startTime;
       }
       currentGroup.push({
+        id: event._id,
         event: event.event,
         createdAt: event.createdAt, // Ensure consistent property name
       });
@@ -60,7 +61,7 @@ export const fetchUserHistory = async (email, setTimerEvents) => {
         duration_time: currentDurationTime,
       });
     }
-
+    console.log(groupedEvents);
     // Update the state with the grouped events
     setTimerEvents(groupedEvents);
   } catch (error) {

@@ -74,6 +74,18 @@ const Timer = () => {
     }
   };
 
+  // Resume timer from history
+  const resumeUnfinishedTimer = () => {
+    // setTimerStatus("start");
+    // setMode(session.mode); // Set the mode based on the session
+    // setTime(session.duration * 60); // Set the time based on the session duration
+    // sendDataToBackend({
+    //   email: user.email,
+    //   event: "resume",
+    //   mode: session.mode,
+    // });
+  };
+
   // Handle page exit (close or refresh)
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -296,7 +308,8 @@ const Timer = () => {
                         .slice()
                         .reverse()
                         .map((event, idx) => (
-                          <div key={idx} className="history-event">
+                          // <History history={timerEvents} onResume={resumeTimer} /> {/* Pass resume function */}
+                          <div key={idx} className="history-event" onResume={resumeTimer}>
                             <text className={`event-type ${event.event}`}>
                               {event.event === "start" && <FaPlay />}{" "}
                               {/* Start icon */}

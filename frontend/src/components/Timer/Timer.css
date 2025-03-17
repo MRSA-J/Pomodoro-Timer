@@ -103,14 +103,14 @@
 .timer-display-header-button {
   cursor: pointer;
   padding: 8px;
-  margin: 20px;
+  margin: 10px;
   font-size: 20px;
   border-radius: 5px;
 }
 
 .timer-display-header-button.active {
   border: none;
-  margin: 0px;
+  margin: 10px;
   border-radius: 4px;
   font-size: 20px;
   background: none rgba(0, 0, 0, 0.15);
@@ -196,7 +196,7 @@
 
 .history-list {
   margin-top: 10px;
-  max-height: 370px;
+  max-height: 220px;
   overflow-y: scroll;
   padding-right: 2px;
 }

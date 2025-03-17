@@ -5,8 +5,15 @@ const cors = require("cors"); // Import CORS
 const app = express();
 require("dotenv").config();
 
+const corsOptions = {
+  origin: process.env.FRONTEND_URL, // Allow only this origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow these methods
+  credentials: true, // Allow cookies to be sent
+  optionsSuccessStatus: 204 // Some legacy browsers choke on 204
+};
+
 // Middleware
-app.use(cors()); // Enable CORS for all routes
+app.use(cors(corsOptions)); // Enable CORS for all routes
 app.use(express.json()); // Add this line to parse JSON request bodies
 
 // Connect to MongoDB

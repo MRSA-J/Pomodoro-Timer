@@ -6,7 +6,8 @@ import "./Avatar.css";
 
 const Avatar = () => {
   const { user } = useAppContext();
-  const { loginWithRedirect, logout } = useAuth0();
+  const { logout } = useAuth0();
+//   const { loginWithRedirect, logout } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -34,7 +35,7 @@ const Avatar = () => {
         {isOpen && (
           <div className="dropdown-menu">
             <div className="dropdown-item" onClick={handleLogout}>
-              <img className="dropdown-icon" src="./icons/user-black.png" />
+              <img className="dropdown-icon" src="./icons/user-black.png" alt="User Avatar"/>
               Logout
             </div>
           </div>
