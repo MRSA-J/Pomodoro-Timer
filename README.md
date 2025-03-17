@@ -4,10 +4,12 @@ A customizable Pomodoro timer application designed to help you boost your produc
 
 The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation and code are completely written from scratch, as this website uses an HTML + CSS framework while this project uses the React framework.
 
+This is a test project for an interview with AwakeTeam. Due to time constraints(1-2 days limitation), this is a simplified version of the Pomodoro Timer. If I had more time, I would implement CRUD functionality for the history tracker, a leaderboard for all users, and additional features.
+
 ## Table of Contents
 
 - [Features](#features)
-- [Demo](#Demo)
+- [Demo](#demo)
 - [Technologies Used](#technologies-used)
 - [Backend Decisions](#backend-decisions)
 - [Installation](#installation)
@@ -24,16 +26,24 @@ The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation
 - **Responsive Design**: Works well on both desktop and mobile devices.
 - **User Authentication**: Secure login using Auth0.
 
+## Future Features
+- **CRUD Functionality for History Tracking**: Due to time constraints, this feature has not yet been implemented.
+
 ## Demo
+
+- **Frontend**: [Pomodoro Timer Frontend](https://pomodoro-timer-h9tyc58cz-chen-weis-projects.vercel.app/)
+- **Backend**: [Pomodoro Timer Backend](https://pomodoro-timer-auhy.onrender.com)
+
 ![Pomodoro Timer Demo](demo/Timer.png)
 
-## Technologies Used
+## Technologies/Framework Used
 
 - **React**: Frontend library for building user interfaces.
 - **Axios**: For making HTTP requests to the backend.
 - **Auth0**: For user authentication and authorization.
 - **CSS**: For styling the application.
 - **React Icons**: For using icons in the UI.
+- **MongoDB**: For backend
 
 ## Backend Decisions
 
@@ -81,7 +91,7 @@ The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation
    ```plaintext
    REACT_APP_AUTH0_DOMAIN=your-auth0-domain
    REACT_APP_AUTH0_CLIENT_ID=your-auth0-client-id
-   REACT_APP_BACKEND_URL=http://localhost:5000
+   REACT_APP_BACKEND_URL=your-backend-url
    ```
 
 4. Start the development server:
@@ -91,7 +101,7 @@ The UI is inspired by [Pomofocus](https://pomofocus.io/), but the implementation
 
 ## Usage
 
-1. Open the application in your browser at `http://localhost:3000`.
+1. Open the application in your browser at `https://pomodoro-timer-h9tyc58cz-chen-weis-projects.vercel.app/`.
 2. Log in using your Auth0 credentials.
 3. Set your desired work and break durations.
 4. Click on the "Pomodoro", "Short Break", or "Long Break" buttons to start the timer.
@@ -115,8 +125,3 @@ Contributions are welcome! If you have suggestions for improvements or new featu
    ```bash
    git push origin feature/YourFeature
    ```
-5. Open a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
